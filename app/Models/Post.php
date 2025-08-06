@@ -26,8 +26,14 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function getReadingTime()
+    {
+        $wordCount = str_word_count(strip_tags($this->content));
+        $readingTime = ceil($wordCount / 200);
+        return $readingTime . ' min read';
+    }
     public function scopePublished($query)
     {
-        return $query->where('is_published', true);
+        return $query->where('is_published', true)->where('published_at', '<=', now());
     }
 }
