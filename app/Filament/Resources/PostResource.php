@@ -108,7 +108,7 @@ class PostResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\Filter::make('category')
+                Tables\Filters\SelectFilter::make('category')
                 ->relationship('category', 'name'),
 
                 Tables\Filters\TernaryFilter::make('is_published')
