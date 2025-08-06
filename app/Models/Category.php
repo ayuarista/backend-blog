@@ -16,4 +16,10 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+    public function scopeWithPosts($query)
+    {
+        return $query->whereHas('posts', function ($q) {
+            $q->published();
+        });
+    }
 }
