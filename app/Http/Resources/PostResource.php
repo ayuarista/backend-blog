@@ -18,7 +18,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'excerpt' => $this->excerpt,
+            'excerpt' => $this->excerpt ?? substr(strip_tags($this->content), 0, 150) . '...',
             'content' => $this->content,
             'image' => $this->image ? url('storage/' . $this->image) : null,
             'category' => $this->whenLoaded('category', function () {
