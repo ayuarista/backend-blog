@@ -30,10 +30,14 @@ class PostResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
+                    ->placeholder('Enter post title')
+                    ->label('Post Title')
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                 Forms\Components\TextInput::make('slug')
                     ->required()
+                    ->label('URL Slug')
+                    ->placeholder('Adjust the URL slug if needed')
                     ->unique(Post::class, 'slug', ignoreRecord: true),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
@@ -47,11 +51,13 @@ class PostResource extends Resource
                         Forms\Components\TextInput::make('slug')->required(),
                         Forms\Components\Textarea::make('description'),
                     ]),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->directory('blog-images'),
                 Forms\Components\Textarea::make('excerpt')
-                    ->rows(3),
+                ->label('Description')
+                ->placeholder('Short description of the post'),
+                Forms\Components\FileUpload::make('image')
+                ->image()
+                ->columnSpanFull()
+                ->directory('blog-images'),
                 Forms\Components\RichEditor::make('content')
                     ->required()
                     ->columnSpanFull()
@@ -68,14 +74,14 @@ class PostResource extends Resource
                         'redo',
                     ]),
                 Forms\Components\TagsInput::make('tags')
+                    ->placeholder('Add tags')
                     ->separator(','),
-                Forms\Components\Grid::make(2)
-                    ->schema([
-                        Forms\Components\Toggle::make('is_published')
-                        ->default(false),
-                        Forms\Components\DateTimePicker::make('published_at')
-                            ->default(now())
-                    ]),
+                Forms\Components\DateTimePicker::make('published_at')
+                ->default(now()),
+                Forms\Components\Toggle::make('is_published')
+                    ->label('Published')
+                    ->inline()
+                    ->default(false),
             ]);
     }
 

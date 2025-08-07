@@ -20,7 +20,7 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'excerpt' => $this->excerpt,
             'content' => $this->content,
-            'featured_image' => $this->featured_image ? url('storage/' . $this->featured_image) : null,
+            'image' => $this->image ? url('storage/' . $this->image) : null,
             'category' => $this->whenLoaded('category', function () {
                 return [
                     'id' => $this->category->id,
