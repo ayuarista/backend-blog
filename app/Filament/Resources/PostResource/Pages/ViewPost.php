@@ -41,7 +41,7 @@ class ViewPost extends ViewRecord
                             ->badge()
                             ->color('success'),
 
-                        ImageEntry::make('featured_image')
+                        ImageEntry::make('image')
                             ->height(200),
 
                         TextEntry::make('excerpt')
@@ -57,9 +57,10 @@ class ViewPost extends ViewRecord
 
                         TextEntry::make('is_published')
                             ->badge()
-                            ->color(fn (string $state): string => match ($state) {
+                            ->color(fn ($state): string => match ((string) $state) {
                                 '1' => 'success',
                                 '0' => 'warning',
+                                default => 'gray',
                             })
                             ->formatStateUsing(fn (string $state): string => $state ? 'Published' : 'Draft'),
 
