@@ -56,7 +56,10 @@ class PostResource extends Resource
                 ->placeholder('Short description of the post'),
                 Forms\Components\FileUpload::make('image')
                 ->image()
+                ->disk('cloudinary')
                 ->columnSpanFull()
+                ->label('Post Image')
+                ->maxSize(2048)
                 ->directory('blog-images'),
                 Forms\Components\RichEditor::make('content')
                     ->required()
