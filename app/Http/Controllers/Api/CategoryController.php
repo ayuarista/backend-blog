@@ -28,7 +28,6 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    // Get posts by category
     public function posts($slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
